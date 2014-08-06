@@ -1,0 +1,43 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file.
+//
+// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+
+$.fn.chinese_city_selection = function() {
+  var that = this;
+  var $province_select = $('select:first', that);
+  var $city_select = $('select:nth(1)', that);
+  var $region_select = $('select:nth(2)', that);
+
+  $province_select.on("change", function(e){
+    var province_name = e.target.value;
+    $.getJSON( "/chinese_city_selection/city_index.json?province_name="+province_name, function( data ) {
+      $city_select.children().remove();
+      $region_select.children().remove();
+      $.each( data, function( key, val ) {
+        $('<option>').val(val.name).text(val.name).appendTo($city_select);
+      });
+      $city_select.trigger('change');
+    });
+  });
+
+  $city_select.on("change", function(e){
+    var city_name = e.target.value;
+    var province_name = $province_select.val();
+    $.getJSON( "/chinese_city_selection/region_index.json?province_name="+province_name+"&city_name="+city_name, function( data ) {
+      $region_select.children().remove();
+      $.each( data, function( key, val ) {
+        $('<option>').val(val.name).text(val.name).appendTo($region_select);
+      });
+    });
+  });
+
+};

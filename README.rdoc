@@ -1,0 +1,27 @@
+= 中国城市级联选择
+
+== Usage:
+
+*** Step 1: 引入gem包
+
+gem 'chinese_city_selection', github: "wanxsb/chinese_city_selection"
+
+*** Step 2: 在文件application_controller.rb中添加如下内容
+    class ApplicationController < ActionController::Base
+      helper ChineseCitySelection::Engine.helpers
+    end
+
+*** STEP 3: 修改routes.rb文件
+    mount ChineseCitySelection::Engine => "/chinese_city_selection"
+
+*** STEP 4: 调用方法如下：
+  以下代码为haml格式
+
+    = f.input :address do
+      = f.select :province, options_for_select(chinese_province_list.map{|p| [p.name, p.name]}, selected: f.object.province), {}, class: "col-sm-4"
+      = f.select :city, options_for_select(chinese_city_list(f.object.province).map{|p| [p.name, p.name]}, selected: f.object.city), {}, class: "col-sm-4"
+      = f.select :region, options_for_select(chinese_region_list(f.object.province, f.object.city).map{|p| [p.name, p.name]}, selected: f.object.region), {}, class: "col-sm-4"
+
+    ...
+    :javascript
+      $('.domain_address').chinese_city_selection();
