@@ -4,7 +4,7 @@
 
 === Step 1: 引入gem包
 
-  gem 'chinese_city_selection', github: "wanxsb/chinese_city_selection"
+  gem 'chinese_city_selection', github: "360pinmi/chinese_city_selection"
 
 === Step 2: 在文件application_controller.rb中添加如下内容
     class ApplicationController < ActionController::Base
@@ -25,3 +25,6 @@
     ...
     :javascript
       $('.domain_address').chinese_city_selection();
+
+== Contributions
+contribute by 上海品米信息科技有限公司
