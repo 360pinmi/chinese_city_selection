@@ -27,4 +27,4 @@
       $('.domain_address').chinese_city_selection();
 
 == Contributions
-contribute by 上海品米信息科技有限公司
+contributed by 上海品米信息科技有限公司
