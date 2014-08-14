@@ -21,7 +21,7 @@ module ChineseCitySelection
         province = ChineseCities::Province.where province_name
         @city = province.cities.select{|c| c.name == city_name }.first
       end
-      @regions = @city.regions
+      @regions = @city.regions rescue []
     end
 
   end
